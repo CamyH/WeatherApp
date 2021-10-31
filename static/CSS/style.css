@@ -147,6 +147,25 @@ nav {
   display: block; /* Make it into a block element to fill the whole list */
 }
 
+/* Weather Data */
+#weather-data-heading {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+#weather-data-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 300px;
+  border: 2px solid #9C1A1C;
+}
+#weather-data-box #weather-data {
+  background: black;
+  width: 50%;
+  height: 50%;
+}
+
 /*
 ######################### FOOTER #########################
 */
