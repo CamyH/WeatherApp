@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Weather App</title>
+        <link href="https://fonts.googleapis.com/css?family=Be+Vietnam:500&display=swap" rel="stylesheet">
+        <!--Favicon-->
+        <!--<link rel="shortcut icon" type="image/png" href="" />-->
+        <!--Default Stylesheet-->
+        <link rel="stylesheet" href="{{  url_for('static', filename='CSS/style.css') }}">
+        <!--For Widescreen devices-->
+        <!--<link rel="stylesheet" media="screen and (min-width: 1150px)" href="../CSS/stylesheetPC.css">-->
+        <!--For Mobile Devices-->
+        <!--<link rel="stylesheet" media="screen and (max-width: 1150px)" href="../CSS/stylesheetMobile.css">-->
+    </head>
+
+    <body>
+        <div id="top-bar">
+            <nav>
+                <img class="speaker-icon" src="{{ url_for('static', filename='IMG/speaker_icon.png') }}" alt="Speaker Icon">
+                <h4><a class="page-title" href="">Weather App</a></h4>
+                <ul class="nav-links">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="">Weather Warnings</a>
+                    </li>
+                    <li>
+                        <a href="">Weather Map</a>
+                    </li>
+                </ul>
+                <div class="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+        <div class="main-page">
+            <div id="search-bar-alignment">
+                <input type="text" id="search-bar" placeholder="Enter a town or city">
+            </div>
+            <!--Testing for now-->
+            <!--<ul id="city-list">
+                  <li><a href="#">Adele</a></li>
+                  <li><a href="#">Agnes</a></li>
+
+                  <li><a href="#">Billy</a></li>
+                  <li><a href="#">Bob</a></li>
+
+                  <li><a href="#">Calvin</a></li>
+                  <li><a href="#">Christina</a></li>
+                  <li><a href="#">Cindy</a></li>
+            </ul>-->
+        </div>
+    <footer>
+        &copy; 2021 Cameron Hunt
+    </footer>
+    </body>
+        <script src="{{ url_for('static', filename="JS/nav.js") }}"></script>
+        <script src="{{ url_for('static', filename="JS/search.js") }}"></script>
+</html>
