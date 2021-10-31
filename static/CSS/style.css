@@ -124,12 +124,12 @@ nav {
 #search-bar {
   width: 80%;
   text-align: center;
-  background-image: "../IMG/search_icon";
-  background-repeat: no-repeat;
+  background-image: url("/static/IMG/search_icon.png");
+  background-position: 10px 12px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
-  opacity: 30%;
+  opacity: 100%;
 }
 #city-list {
   list-style-type: none;
