@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import requests
+import geocoder
 # Using for testing for now
 
 app = Flask(__name__)
@@ -7,9 +8,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def call_api():
+    location = geocoder.ip('me')
+    latlng = location.latlng
     """""
-    #location = geocoder.ip('me')
-    #latlng = location.latlng
     lat = 55.9533
     lon = 3.1883
     #print("Here is the weather for", location.city)
@@ -25,7 +26,7 @@ def call_api():
     for item in weather:
         weather_type = item["main"]
 """""
-    return render_template('index.html')
+    return render_template('index.html', location=location.city)
 #def index_page():
 #    return render_template('index.html', temperature=temperature)
 """""
