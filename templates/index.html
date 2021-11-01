@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>Weather App</title>
         <link href="https://fonts.googleapis.com/css?family=Be+Vietnam:500&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/586a162324.js" crossorigin="anonymous"></script>
         <!--Favicon-->
         <!--<link rel="shortcut icon" type="image/png" href="" />-->
         <!--Default Stylesheet-->
@@ -54,7 +55,8 @@
                   <li><a href="#">Christina</a></li>
                   <li><a href="#">Cindy</a></li>
             </ul>-->
-            <h1 id="weather-data-heading">Here is the weather for Edinburgh: {{ temperature }}</h1>
+            <h1 id="weather-data-heading">Here is the weather for</h1>
+            <i class='fas fa-cloud-sun' style='font-size:36px'></i>
             <div id="weather-data-box">
                 <div id="weather-data">
 
@@ -67,4 +69,5 @@
     </body>
         <script src="{{ url_for('static', filename="JS/nav.js") }}"></script>
         <script src="{{ url_for('static', filename="JS/search.js") }}"></script>
+        <script src="{{ url_for('static', filename="JS/weather.js") }}"></script>
 </html>

@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def call_api():
+    """""
     #location = geocoder.ip('me')
     #latlng = location.latlng
     lat = 55.9533
@@ -23,8 +24,8 @@ def call_api():
     weather = response['current']['weather']
     for item in weather:
         weather_type = item["main"]
-
-    return render_template('index.html', temperature=temperature)
+"""""
+    return render_template('index.html')
 #def index_page():
 #    return render_template('index.html', temperature=temperature)
 """""
