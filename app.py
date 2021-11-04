@@ -1,16 +1,19 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 import requests
 import geocoder
+import datetime
 # Using for testing for now
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=["GET"])
 def call_api():
+    # Get user ip address
+    ip = jsonify({'ip': request.remote_addr})
     location = geocoder.ip('me')
     latlng = location.latlng
-    """""
+    
     lat = 55.9533
     lon = 3.1883
     #print("Here is the weather for", location.city)
@@ -23,10 +26,22 @@ def call_api():
     feels_like = round(response['current']['feels_like'])
     wind_speed = response['current']['wind_speed']
     weather = response['current']['weather']
+    sunrise_epoch = response['current']['sunrise']
+    sunrise = convert_time(sunrise_epoch)
+    sunset_epoch = response['current']['sunset']
+    sunset = convert_time(sunset_epoch)
+    uv_index = response['current']['uvi']
+    precipitation = response['current']['rain']
+    rain = ""
+    for item in precipitation:
+        rain = item["1h"]
     for item in weather:
         weather_type = item["main"]
-"""""
-    return render_template('index.html', location=location.city)
+
+    # Daily weather data
+
+
+    return render_template('index.html', location=location.city, temp=temperature, feels_like=feels_like, wind=wind_speed, weather=weather_type, sunrise=sunrise, sunset=sunset, uvi=uv_index, rain=rain)
 #def index_page():
 #    return render_template('index.html', temperature=temperature)
 """""
@@ -53,5 +68,11 @@ def call_api():
     return "Current weather is %s" % temperature
 
 """""
+
+def convert_time(time_epoch):
+    time_converted = datetime.datetime.fromtimestamp(time_epoch)
+    time = time_converted.time().strftime("%H:%M")
+    return time
+
 if __name__ == '__main__':
     app.run()
