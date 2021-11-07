@@ -1,4 +1,4 @@
-function searchBar() {
+/*function searchBar() {
     var input, filter, ul, li, a, i, value;
     input = document.getElementById("search-bar");
     filter = input.value.toUpperCase();
@@ -14,4 +14,15 @@ function searchBar() {
             li[i].style.display = "none";
         }
     }
+}*/
+/* Doesn't work yet */
+function retrieveCity() {
+    const button = document.getElementById("button");
+    const searchBar = document.getElementById("search-bar")
+    const submittedData = document.getElementById("search")
+    const data = "";
+    button.addEventListener("submit", (event) => {
+        data = button.querySelector(button).innerText;
+    });
+    console.log(data)
 }

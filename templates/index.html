@@ -41,7 +41,10 @@
         </div>
         <div class="main-page">
             <div id="search-bar-alignment">
-                <input type="text" id="search-bar" placeholder="Enter a town or city">
+                <form id="search" onsubmit="retrieveCity()">
+                    <input type="text" id="search-bar" placeholder="Enter a town or city">
+                    <button id="button" type="submit"><i class="fa fa-search"></i></button>
+                </form>
             </div>
             <!--Testing for now-->
             <!--<ul id="city-list">
