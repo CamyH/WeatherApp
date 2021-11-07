@@ -157,14 +157,15 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 300px;
-  border: 2px solid #9C1A1C;
 }
-#weather-data-box #weather-data {
-  background: white;
-}
-#weather-type-1 {
-  z-index: 9999;
+#weather-data-box .weather-data { background: white; }
+.weather-data { font-size: 1.5em; }
+.raw-data-temp { font-size: 3.5em; }
+.raw-data-weather {font-size: 2em; }
+div.weather-data > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*

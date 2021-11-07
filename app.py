@@ -13,7 +13,7 @@ def call_api():
     ip = jsonify({'ip': request.remote_addr})
     location = geocoder.ip('me')
     latlng = location.latlng
-    
+    """""
     lat = 55.9533
     lon = 3.1883
     #print("Here is the weather for", location.city)
@@ -31,17 +31,18 @@ def call_api():
     sunset_epoch = response['current']['sunset']
     sunset = convert_time(sunset_epoch)
     uv_index = response['current']['uvi']
-    precipitation = response['current']['rain']
+    #precipitation = response['current']['rain']
     rain = ""
-    for item in precipitation:
-        rain = item["1h"]
+    #for item in precipitation:
+    #    rain = item["1h"]
     for item in weather:
         weather_type = item["main"]
 
     # Daily weather data
+    , temp=temperature, feels_like=feels_like, wind=wind_speed, weather=weather_type, sunrise=sunrise, sunset=sunset, uvi=uv_index
+    """""
 
-
-    return render_template('index.html', location=location.city, temp=temperature, feels_like=feels_like, wind=wind_speed, weather=weather_type, sunrise=sunrise, sunset=sunset, uvi=uv_index, rain=rain)
+    return render_template('index.html', location=location.city, temp=23)
 #def index_page():
 #    return render_template('index.html', temperature=temperature)
 """""
