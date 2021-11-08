@@ -15,8 +15,8 @@
         <!--For Mobile Devices-->
         <!--<link rel="stylesheet" media="screen and (max-width: 1150px)" href="../CSS/stylesheetMobile.css">-->
     </head>
-
     <body>
+    <video autoplay muted loop id="background-video"><source src="{{ url_for('static', filename="VID/rain_background_compressed.mp4") }}" type="video/mp4"></video>
         <div id="top-bar">
             <nav>
                 <img class="speaker-icon" src="{{ url_for('static', filename='IMG/speaker_icon.png') }}" alt="Speaker Icon">
@@ -58,9 +58,9 @@
                   <li><a href="#">Christina</a></li>
                   <li><a href="#">Cindy</a></li>
             </ul>-->
-            <h1 id="weather-data-heading">Here is the weather for {{ location }}</h1>
             <div id="weather-data-box">
                 <div class="weather-data">
+                    <h1 id="weather-data-heading">Here is the weather for {{ location }}</h1>
                     <!--<i class='fas fa-cloud-sun' style='font-size:36px'></i>-->
                     <p class="raw-data-temp">{{ temp }} &#176;</p>
                     <p class="raw-data-weather">Weather: {{ weather }}</p>
@@ -74,7 +74,8 @@
             </div>
         </div>
     <footer>
-        &copy; 2021 Cameron Hunt
+        <p>&copy; 2021 Cameron Hunt <br>
+        <a id="footer-text" rel="nofollow" href="http://www.videezy.com">Free stock footage by Videezy</a></p>
     </footer>
     </body>
         <script src="{{ url_for('static', filename="JS/nav.js") }}"></script>

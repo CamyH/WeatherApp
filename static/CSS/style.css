@@ -3,6 +3,7 @@
   padding: 0px;
   box-sizing: border-box;
   font-family: "Be Vietnam", sans-serif;
+  z-index: 999;
 }
 body {
   overflow-x: hidden;
@@ -19,7 +20,14 @@ body {
 .main-page {
   height: 100%;
 }
-
+#background-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 900;
+}
 /*
 ######################### TOP BAR #########################
 */
@@ -42,7 +50,7 @@ nav {
   align-items: center;
   min-height: 6vh;
   background-color: #22577A;
-  /*#191d39*/
+  z-index: 9999;
 }
 .nav-links {
   display: flex;
@@ -69,9 +77,7 @@ nav {
   font-weight: bold;
   font-size: 14px;
 }
-.nav-links a:hover {
-  color: #38A3A5;
-}
+.nav-links a:hover { color: #38A3A5; }
 .burger, .speaker-icon {
   cursor: pointer;
   z-index: 999999;
@@ -151,9 +157,7 @@ nav {
 
 /* Weather Data */
 #weather-data-heading {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 30px;
+  font-size: 1em;
 }
 #weather-data-box {
   display: flex;
@@ -183,3 +187,5 @@ footer {
   justify-content: center;
   align-items: center;
 }
+#footer-text { text-decoration: none; color: #e2e2e2; }
+#footer-text:hover { color: #38A3A5; }
