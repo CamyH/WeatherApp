@@ -43,6 +43,9 @@ def call_api():
     """""
 
     return render_template('index.html', location=location.city, temp=23)
+
+
+
 #def index_page():
 #    return render_template('index.html', temperature=temperature)
 """""
