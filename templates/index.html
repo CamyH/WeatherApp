@@ -16,7 +16,11 @@
         <!--<link rel="stylesheet" media="screen and (max-width: 1150px)" href="../CSS/stylesheetMobile.css">-->
     </head>
     <body>
-    <video autoplay muted loop id="background-video"><source src="{{ url_for('static', filename="VID/rain_background_compressed.mp4") }}" type="video/mp4"></video>
+    {% if weather == "Clear Sky" or weather_description == "Broken Clouds" %}
+        <img id="background-sunny-sky" src="{{ url_for('static', filename="IMG/sunny_sky.png") }}" alt="sunny sky">
+    {% else %}
+        <video autoplay muted loop id="background-video-rain"><source src="{{ url_for('static', filename="VID/rain_background_compressed.mp4") }}" type="video/mp4"></video>
+    {% endif %}
         <div id="top-bar">
             <nav>
                 <img class="speaker-icon" src="{{ url_for('static', filename='IMG/speaker_icon.png') }}" alt="Speaker Icon">
@@ -60,10 +64,11 @@
             </ul>-->
             <div id="weather-data-box">
                 <div class="weather-data">
-                    <h1 id="weather-data-heading">Here is the weather for {{ location }}</h1>
+                    <h1 id="weather-data-heading">Here is the current weather for {{ location }}</h1>
                     <!--<i class='fas fa-cloud-sun' style='font-size:36px'></i>-->
                     <p class="raw-data-temp">{{ temp }} &#176;</p>
-                    <p class="raw-data-weather">Weather: {{ weather }}</p>
+                    <!--<p class="raw-data-weather">Weather: {{ weather }}</p>-->
+                    <p class="raw-data-weather-description">{{ weather_description }}</p>
                     <p class="raw-data-feels-like">Feels Like: {{ feels_like }} &#176;</p>
                     <p class="raw-data-wind-speed">Wind Speed: {{ wind }} mph</p>
                     <p class="raw-data-sunrise">Sunrise Time: {{ sunrise }} am</p>

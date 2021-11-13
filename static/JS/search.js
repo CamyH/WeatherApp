@@ -20,9 +20,17 @@ function retrieveCity() {
     const button = document.getElementById("button");
     const searchBar = document.getElementById("search-bar")
     const submittedData = document.getElementById("search")
-    const data = "";
+    const search_term = "";
     button.addEventListener("submit", (event) => {
-        data = button.querySelector(button).innerText;
+        search_term = button.querySelector(button).innerText;
     });
-    console.log(data)
+    // Call Function to send entered city to app.py
+    sendCity(search_term);
+}
+
+function sendCity(search_term) {
+    const city = search_term;
+    const request = new XMLHttpRequest();
+    request.open('POST', '/${JSON.stringify(city)}');
+    request.send();
 }
