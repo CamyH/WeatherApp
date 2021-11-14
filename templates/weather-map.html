@@ -16,11 +16,6 @@
         <!--<link rel="stylesheet" media="screen and (max-width: 1150px)" href="../CSS/stylesheetMobile.css">-->
     </head>
     <body>
-    {% if weather == "Clear Sky" or weather_description == "Broken Clouds" %}
-        <img id="background-sunny-sky" src="{{ url_for('static', filename="IMG/sunny_sky.png") }}" alt="sunny sky">
-    {% else %}
-        <video autoplay muted loop id="background-video-rain"><source src="{{ url_for('static', filename="VID/rain_background_compressed.mp4") }}" type="video/mp4"></video>
-    {% endif %}
         <div id="top-bar">
             <nav>
                 <img class="speaker-icon" src="{{ url_for('static', filename='IMG/speaker_icon.png') }}" alt="Speaker Icon">

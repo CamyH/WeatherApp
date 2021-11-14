@@ -7,7 +7,7 @@ import datetime
 app = Flask(__name__)
 
 
-@app.route('/', methods=["POST"])
+@app.route('/')
 def call_api():
     # Get user ip address
     ip = jsonify({'ip': request.remote_addr})
@@ -55,37 +55,16 @@ def call_api():
     #for type, weather_types in weather_type_dict.items():
         #if weather_types == weather_type:
 
+    #temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = location.city, weather_description = weather_description
+    return render_template('index.html')
 
-    return render_template('index.html', temp=temperature, feels_like=feels_like, wind=wind_speed, weather=current_weather_type, sunrise=sunrise, sunset=sunset, uvi=uv_index, location=location.city, weather_description=weather_description)
+@app.route('/weather-warnings')
+def weather_warnings():
+    return render_template('')
 
-
-
-#def index_page():
-#    return render_template('index.html', temperature=temperature)
-"""""
-@app.route('/city')
-def call_api():
-    #location = geocoder.ip('me')
-    #latlng = location.latlng
-    lat = 55.9533
-    lon = 3.1883
-    #print("Here is the weather for", location.city)
-    url = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely,hourly,alerts,daily&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
-        lat, lon)
-    response = requests.get(url).json()
-    weather_type = ""
-    timezone = response['timezone']
-    temperature = round(response['current']['temp'])
-    feels_like = round(response['current']['feels_like'])
-    wind_speed = response['current']['wind_speed']
-    weather = response['current']['weather']
-    for item in weather:
-        weather_type = item["main"]
-
-    print(timezone)
-    return "Current weather is %s" % temperature
-
-"""""
+@app.route('/weather-map')
+def weather_map():
+    return render_template('')
 
 def convert_time(time_epoch):
     # Method to convert time from epoch time to hours & minutes
@@ -94,6 +73,7 @@ def convert_time(time_epoch):
     return time
 
 #def retrieve_city():
+#    return json.dumps("Hello")
     # https://www.youtube.com/watch?v=6rPxwj1sR5c&ab_channel=SkyAlphaTech
     # https://www.py4u.net/discuss/985565
     # https://www.youtube.com/watch?v=2OYkhatUZmQ&ab_channel=bsaldivar%3ADatascience

@@ -165,12 +165,14 @@ nav {
 #weather-data-heading {
   font-size: 1em;
 }
-#weather-data-box {
+#weather-data-box { background: #22577A; }
+#weather-data-box, #other-data-box {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#weather-data-box .weather-data { background: #22577A; padding: 2%; margin: 2%; padding-left: 25%; padding-right: 25%;  }
+#weather-data-box, #other-data-box { padding: 2%; margin: 2%; padding-left: 25%; padding-right: 25%;  }
+#other-data-box { background: #38A3A5; margin-top: 10%; }
 .weather-data { font-size: 1.5em; }
 .raw-data-temp { font-size: 3.5em; }
 .raw-data-weather { font-size: 2em; }
