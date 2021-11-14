@@ -2,10 +2,8 @@ from flask import Flask, render_template, jsonify, request
 import requests
 import geocoder
 import datetime
-# Using for testing for now
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def call_api():
@@ -13,12 +11,11 @@ def call_api():
     ip = jsonify({'ip': request.remote_addr})
     location = geocoder.ip('me')
     latlng = location.latlng
-    """""
     lat = 55.9533
     lon = 3.1883
     #print("Here is the weather for", location.city)
     # API request
-    url = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely,alerts&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
+    url = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
         lat, lon)
     response = requests.get(url).json()
     # Fetching all appropriate data from API response
@@ -46,8 +43,6 @@ def call_api():
         # Description comes in lower case in most instances, so capitalise first letter of each word
         weather_description = weather_description.title()
 
-    # Daily weather data
-    """""
     weather_type_dict = {
         "weather_type": ["thunderstorm", "drizzle", "rain", "snow", "mist", "smoke", "haze", "dust", "fog", "clear", "clouds"]
     }
@@ -55,8 +50,7 @@ def call_api():
     #for type, weather_types in weather_type_dict.items():
         #if weather_types == weather_type:
 
-    #temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = location.city, weather_description = weather_description
-    return render_template('index.html')
+    return render_template('index.html', temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = location.city, weather_description = weather_description)
 
 @app.route('/weather-warnings')
 def weather_warnings():
@@ -76,9 +70,6 @@ def convert_time(time_epoch):
 
 #def retrieve_city():
 #    return json.dumps("Hello")
-    # https://www.youtube.com/watch?v=6rPxwj1sR5c&ab_channel=SkyAlphaTech
-    # https://www.py4u.net/discuss/985565
-    # https://www.youtube.com/watch?v=2OYkhatUZmQ&ab_channel=bsaldivar%3ADatascience
 
 if __name__ == '__main__':
     app.run()

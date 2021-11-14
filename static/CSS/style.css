@@ -19,7 +19,10 @@ body {
 .main-page {
   height: 100%;
 }
-#background-sunny-sky {
+/*
+######################### BACKGROUND IMAGES/VIDEO #########################
+ */
+#background-sunny, #background-overcast {
   position: fixed;
   right: 0;
   bottom: 0;
