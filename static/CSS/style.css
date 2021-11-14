@@ -165,9 +165,8 @@ nav {
 }
 
 /* Weather Data */
-#weather-data-heading {
-  font-size: 1em;
-}
+#weather-data-heading { font-size: 1em; }
+#other-data-heading { font-size: 0.9em; }
 #weather-data-box { background: #22577A; }
 #weather-data-box, #other-data-box {
   display: flex;
@@ -180,7 +179,14 @@ nav {
 .raw-data-temp { font-size: 3.5em; }
 .raw-data-weather { font-size: 2em; }
 .raw-data-weather-description { font-size: 1.8em; }
+/* Select all div elements within the weather-data div and apply vertical centering */
 div.weather-data > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Select all div elements within the other-weather-data div and apply vertical centering */
+div.other-weather-data > * {
   display: flex;
   justify-content: center;
   align-items: center;
