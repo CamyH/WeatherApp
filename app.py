@@ -60,11 +60,11 @@ def call_api():
 
 @app.route('/weather-warnings')
 def weather_warnings():
-    return render_template('')
+    return render_template('weather-warnings.html')
 
 @app.route('/weather-map')
 def weather_map():
-    return render_template('')
+    return render_template('weather-map.html')
 
 def convert_time(time_epoch):
     # Method to convert time from epoch time to hours & minutes
