@@ -126,7 +126,7 @@ nav {
 }
 
 /*
-######################### MAIN PAGE #########################
+######################### MAIN SECTION FOR ALL PAGES #########################
 */
 /* Search Bar */
 #search-bar-alignment {
@@ -164,7 +164,7 @@ nav {
   display: block; /* Make it into a block element to fill the whole list */
 }
 
-/* Weather Data */
+/* Weather Data - Index Page */
 #weather-data-heading { font-size: 1em; }
 #other-data-heading { font-size: 0.9em; }
 #weather-data-box { background: #22577A; }
@@ -187,6 +187,25 @@ div.weather-data > * {
 }
 /* Select all div elements within the other-weather-data div and apply vertical centering */
 div.other-weather-data > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Weather Warnings - Weather Warnings Page */
+#weather-warnings-header, #weather-warnings-box-header {
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#weather-warnings-box-header { font-size: 1.5em; }
+#weather-warnings-box {
+  background: #22577A;
+  padding: 2%;
+  margin: 2%;
+  padding-left: 25%;
+  padding-right: 25%;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -5,6 +5,9 @@ import datetime
 
 app = Flask(__name__)
 
+# Get users location and set to global variable
+location = geocoder.ip('me')
+
 @app.route('/')
 def call_api():
     # Get user ip address
@@ -54,7 +57,7 @@ def call_api():
 
 @app.route('/weather-warnings')
 def weather_warnings():
-    return render_template('weather-warnings.html')
+    return render_template('weather-warnings.html', location = location.city)
 
 @app.route('/weather-map')
 def weather_map():
