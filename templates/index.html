@@ -6,9 +6,7 @@
         <title>Weather App</title>
         <link href="https://fonts.googleapis.com/css?family=Be+Vietnam:500&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/586a162324.js" crossorigin="anonymous"></script>
-        <!--Favicon-->
-        <!--<link rel="shortcut icon" type="image/png" href="" />-->
-        <!--Default Stylesheet-->
+        <link rel="favicon icon" type="image/png" href="{{ url_for('static', filename='IMG/favicon.png') }}" />
         <link rel="stylesheet" href="{{  url_for('static', filename='CSS/style.css') }}">
     </head>
     <body>
@@ -83,7 +81,8 @@
         </div>
     <footer>
         <p>&copy; 2021 Cameron Hunt <br>
-        <a id="footer-text" rel="nofollow" href="http://www.videezy.com">Free stock footage by Videezy</a></p>
+        <a id="footer-text" rel="nofollow" href="http://www.videezy.com">Free stock footage by Videezy</a> <br>
+        <a id="footer-text" rel="nofollow" href="https://www.iconsdb.com/orange-icons/sun-icon.html">Favicon icon from iconsdb</a></p>
     </footer>
     </body>
         <script src="{{ url_for('static', filename="JS/nav.js") }}"></script>

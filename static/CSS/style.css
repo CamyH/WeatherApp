@@ -174,7 +174,7 @@ nav {
   align-items: center;
 }
 #weather-data-box, #other-data-box { padding: 2%; margin: 2%; padding-left: 25%; padding-right: 25%;  }
-#other-data-box { background: #38A3A5; margin-top: 5%; }
+#other-data-box { background: #38A3A5; margin-top: 3%; }
 .weather-data { font-size: 1.5em; }
 .raw-data-temp { font-size: 3.5em; }
 .raw-data-weather { font-size: 2em; }
@@ -198,7 +198,7 @@ div.other-weather-data > * {
 footer {
   color: white;
   width: 100%;
-  min-height: 6vh;
+  min-height: 10vh;
   z-index: 9999;
   background-color: #22577A;
   display: flex;
