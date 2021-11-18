@@ -8,19 +8,20 @@ app = Flask(__name__)
 # Get users location and set to global variable
 location = geocoder.ip('me')
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def call_api():
     # Get user ip address
     ip = jsonify({'ip': request.remote_addr})
     location = geocoder.ip('me')
     latlng = location.latlng
+    city = request.data
     lat = 55.9533
     lon = 3.1883
     #print("Here is the weather for", location.city)
     # API request
-    url = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
+    api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely,alerts&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
         lat, lon)
-    response = requests.get(url).json()
+    response = requests.get(api).json()
     # Fetching all appropriate data from API response
     weather_type = ""
     weather_description = ""
@@ -53,14 +54,35 @@ def call_api():
     #for type, weather_types in weather_type_dict.items():
         #if weather_types == weather_type:
 
+
+    # ADD IN UV INDEX SCALE
+
+
     return render_template('index.html', temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = location.city, weather_description = weather_description)
 
 @app.route('/weather-warnings')
 def weather_warnings():
-    return render_template('weather-warnings.html', location = location.city)
+    latlng = location.latlng
+    # Hardcoded lat and lon for now
+    lat = 55.9533
+    lon = 3.1883
+
+    # Second API call to only get weather alerts for the location
+    api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=current,minutely,hourly,daily&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
+        lat, lon)
+    response = requests.get(api).json()
+    weather_alert = response['alerts']['event']
+
+
+    return render_template('weather-warnings.html', location = location.city, weather_alert = weather_alert)
 
 @app.route('/weather-map')
 def weather_map():
+    latlng = location.latlng
+    # Hardcoded lat and lon for now
+    lat = 55.9533
+    lon = 3.1883
+
     api = "http://maps.openweathermap.org/maps/2.0/weather/PAC0/2/2/2?appid=3b1175067ddb84b48f3f5f82fb3e8ecf"
     #response = requests.get(api).json()
     return render_template('weather-map.html')

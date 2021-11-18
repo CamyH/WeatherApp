@@ -25,12 +25,13 @@ function retrieveCity() {
         search_term = button.querySelector(button).innerText;
     });
     // Call Function to send entered city to app.py
-    sendCity(search_term);
+    //sendCity(search_term);
 }
 
 function sendCity(search_term) {
     const city = search_term;
     const request = new XMLHttpRequest();
-    request.open('POST', '/${JSON.stringify(city)}');
-    request.send();
+    request.open('POST', '/');
+    request.send(city);
+    alert(city);
 }
