@@ -10,6 +10,11 @@ location = geocoder.ip('me')
 
 @app.route('/', methods=['GET', 'POST'])
 def call_api():
+    # Get city from search bar if used
+    if request.data != None:
+        user_city = request.data
+        print(user_city)
+
     # Get user ip address
     ip = jsonify({'ip': request.remote_addr})
     location = geocoder.ip('me')
@@ -71,9 +76,14 @@ def weather_warnings():
     api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=current,minutely,hourly,daily&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
         lat, lon)
     response = requests.get(api).json()
-    weather_alert = response['alerts']['event']
-
-
+    weather_alert = ""
+    # Check if there are any weather alerts for the user's location
+    for item in response:
+        if item == "alerts":
+            weather_alert = response['alerts']['event']
+    # Guard clause to check if there are any weather alerts
+    if weather_alert == None:
+        return render_template('weather-warnings.html', location = location.city)
     return render_template('weather-warnings.html', location = location.city, weather_alert = weather_alert)
 
 @app.route('/weather-map')
