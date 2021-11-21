@@ -69,9 +69,8 @@ def call_api():
 @app.route('/weather-warnings')
 def weather_warnings():
     latlng = location.latlng
-    # Hardcoded lat and lon for now
-    lat = 55.9533
-    lon = 3.1883
+    lat = latlng[0]
+    lon = latlng[1]
 
     # Second API call to only get weather alerts for the location
     api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=current,minutely,hourly,daily&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
