@@ -12,7 +12,7 @@
     <body>
     {% if weather == "Clear Sky" or weather_description == "Broken Clouds" %}
         <img id="background-sunny" src="{{ url_for('static', filename="IMG/sunny.png") }}" alt="sunny sky">
-    {% elif weather_description == "Overcast Clouds" %}
+    {% elif weather_description == "Overcast Clouds" or weather_description == "Scattered Clouds" %}
         <img id="background-overcast" src="{{ url_for('static', filename="IMG/overcast.png") }}" alt="overcast sky">
     {% else %}
         <video autoplay muted loop id="background-video-rain"><source src="{{ url_for('static', filename="VID/rain_background_compressed.mp4") }}" type="video/mp4"></video>

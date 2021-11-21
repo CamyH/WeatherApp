@@ -16,13 +16,14 @@ def call_api():
         print(user_city)
 
     # Get user ip address
-    ip = jsonify({'ip': request.remote_addr})
+    #ip = jsonify({'ip': request.remote_addr})
     location = geocoder.ip('me')
     latlng = location.latlng
     city = request.data
-    lat = 55.9533
-    lon = 3.1883
-    #print("Here is the weather for", location.city)
+    # Set lat and lon vars appropriately
+    # Lat is always at position 0, lon is always at position 1
+    lat = latlng[0]
+    lon = latlng[1]
     # API request
     api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely,alerts&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
         lat, lon)
