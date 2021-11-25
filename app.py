@@ -76,15 +76,24 @@ def weather_warnings():
     api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=current,minutely,hourly,daily&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
         lat, lon)
     response = requests.get(api).json()
-    weather_alert = "empty"
-    # Check if there are any weather alerts for the user's location
-    for item in response:
-        if item == "alerts":
-            weather_alert = response['alerts']['event']
-    # Guard clause to check if there are any weather alerts
-    if weather_alert == None:
-        return render_template('weather-warnings.html', location = location.cit, weather_alert = weather_alert)
-    return render_template('weather-warnings.html', location = location.city, weather_alert = weather_alert)
+    weather_alert_data_response = response['alerts']
+    weather_alert_sender = ""
+    weather_alert = ""
+    weather_alert_description = ""
+    # Put all weather alerts into a dictionary
+    weather_data = dict(weather_alert_data_response[0])
+    # Iterate over dictionary and grab necessary weather alert data to be used on the weather-warnings page
+    for key, value in weather_data.items():
+        if key == "sender_name":
+            weather_alert_sender = value
+        elif key == "event":
+            weather_alert = value
+        elif key == "description":
+            weather_alert_description = value
+        else:
+            continue
+
+    return render_template('weather-warnings.html', location = location.city, weather_alert_sender = weather_alert_sender, weather_alert = weather_alert, weather_alert_description = weather_alert_description)
 
 @app.route('/weather-map')
 def weather_map():
