@@ -242,3 +242,5 @@ footer {
 @media screen and (min-width: 520px) and (max-width: 520px) {
   #weather-warnings-data { font-size: 0.40em; }
 }
+
+#map { height: 100% }

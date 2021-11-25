@@ -93,7 +93,7 @@ def weather_map():
     lat = 55.9533
     lon = 3.1883
 
-    api = "http://maps.openweathermap.org/maps/2.0/weather/PAC0/2/2/2?appid=3b1175067ddb84b48f3f5f82fb3e8ecf"
+    #api = "http://maps.openweathermap.org/maps/2.0/weather/PAC0/2/2/2?appid=3b1175067ddb84b48f3f5f82fb3e8ecf"
     #response = requests.get(api).json()
     return render_template('weather-map.html')
 
