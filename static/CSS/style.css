@@ -242,7 +242,9 @@ footer {
 }
 #footer-text { text-decoration: none; color: #e2e2e2; }
 #footer-text:hover { color: #38A3A5; }
-
+#weather-map-page {
+  /*display: none;*/
+}
 /*
 ######################### SMALLER SCREEN ADJUSTMENTS #########################
 */
