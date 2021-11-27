@@ -1,3 +1,9 @@
+/*
+* Author: Cameron Hunt
+* Date of last modification: 27/11/2021
+* Purpose of file: To provide the weather map for the weather-map page using the leaflet library and openweathermap data
+*/
+
 // JavaScript for embedding the interactive map
 // Taken from the example at https://github.com/buche/leaflet-openweathermap
 

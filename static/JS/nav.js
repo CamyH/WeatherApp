@@ -1,3 +1,9 @@
+/*
+* Author: Cameron Hunt
+* Date of last modification: 27/11/2021
+* Purpose of file: To provide the animation for the navigation icon
+*/
+
 const navSlide= ()=> {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
