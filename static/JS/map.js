@@ -4,8 +4,7 @@
 * Purpose of file: To provide the weather map for the weather-map page using the leaflet library and openweathermap data
 */
 
-// JavaScript for embedding the interactive map
-// Taken from the example at https://github.com/buche/leaflet-openweathermap
+// Taken from the example at https://github.com/buche/leaflet-openweathermap and modified slightly
 
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 18, attribution: 'Weather Data supplied by OpenWeatherMap.org' });
