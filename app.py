@@ -13,7 +13,7 @@ def call_api():
     # Get city from search bar if used
     if request.data != None:
         user_city = request.data
-        print(user_city)
+        #print(user_city)
 
     # Get user ip address
     #ip = jsonify({'ip': request.remote_addr})

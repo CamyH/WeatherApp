@@ -11,9 +11,9 @@ var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Placeholder Lat and Lon for now
 var map = L.map('map', { center: new L.LatLng(55.9533, 3.1883), zoom: 10, layers: [osm] });
 var baseMaps = { "OSM Standard": osm };
-var rain = L.OWM.rainClassic({opacity: 0.5,appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', showLegend: true});
+var rain = L.OWM.rainClassic({opacity: 0.5, appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', showLegend: true});
 var clouds = L.OWM.cloudsClassic({opacity: 0.5, appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', showLegend: true});
-var city = L.OWM.current({minZoom: 1, appId: '3b1175067ddb84b48f3f5f82fb3e8ecf'})
+var city = L.OWM.current({minZoom: 1, appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', showLegend: true})
 var overlayMaps = { "Rain": rain, "Clouds": clouds, "City": city };
 var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
 
