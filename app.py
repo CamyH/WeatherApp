@@ -45,6 +45,7 @@ def call_api():
     rain = ""
     #for item in precipitation:
     #    rain = item["1h"]
+    current_weather_type = ""
     for item in current_weather:
         weather_type = item["main"]
         if weather_type == "Clouds":
