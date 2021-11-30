@@ -98,14 +98,14 @@ def weather_warnings():
 
 @app.route('/weather-map')
 def weather_map():
+    # Setting lat and lon to be used for the weather map
     latlng = location.latlng
-    # Hardcoded lat and lon for now
-    lat = 55.9533
-    lon = 3.1883
+    lat = latlng[0]
+    lon = latlng[1]
 
     #api = "http://maps.openweathermap.org/maps/2.0/weather/PAC0/2/2/2?appid=3b1175067ddb84b48f3f5f82fb3e8ecf"
     #response = requests.get(api).json()
-    return render_template('weather-map.html')
+    return render_template('weather-map.html', lat=lat, lon=lon)
 
 def convert_time(time_epoch):
     # Method to convert time from epoch time to hours & minutes
