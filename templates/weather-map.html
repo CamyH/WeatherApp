@@ -8,6 +8,16 @@
         <script src="https://kit.fontawesome.com/586a162324.js" crossorigin="anonymous"></script>
         <link rel="favicon icon" type="image/png" href="{{ url_for('static', filename='IMG/favicon.png') }}" />
         <link rel="stylesheet" href="{{  url_for('static', filename='CSS/style.css') }}">
+        <!-- LEAFLET CSS FILE FROM https://leafletjs.com/examples/quick-start/ -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+        <!-- LEAFLET JS FILE FROM https://leafletjs.com/examples/quick-start/ -->
+         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+         <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='CSS/leaflet-openweathermap.css') }}" />
+         <script type="text/javascript" src="{{ url_for('static', filename='JS/leaflet-openweathermap.js') }}"></script>
     </head>
     <body>
         <div id="top-bar">
@@ -39,18 +49,19 @@
                     <button id="button" type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
-
-            <div id="weather-data-box">
-            </div>
-            <div id="other-data-box">
-            </div>
+            <div id="map"></div>
         </div>
-    <footer>
+    <footer id="weather-map-page">
         <p>&copy; 2021 Cameron Hunt <br>
         <a id="footer-text" rel="nofollow" href="http://www.videezy.com">Free stock footage by Videezy</a> <br>
         <a id="footer-text" rel="nofollow" href="https://www.iconsdb.com/orange-icons/sun-icon.html">Favicon icon from iconsdb</a></p>
     </footer>
     </body>
+        <script type="text/javascript" src="{{ url_for('static', filename="JS/map.js") }}"></script>
+        <script type="text/javascript">
+            // Sending lat and lon to JS and initialising weather map
+            map = initMap({{lat}},{{lon}})
+        </script>
         <script src="{{ url_for('static', filename="JS/nav.js") }}"></script>
         <script src="{{ url_for('static', filename="JS/search.js") }}"></script>
 </html>

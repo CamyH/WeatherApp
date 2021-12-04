@@ -1,11 +1,42 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, g
 import requests
 import geocoder
+import datetime
+import sqlite3
 import datetime
 
 app = Flask(__name__)
 
+#https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
+
+db = 'db/database.db'
+
+def get_db():
+    db = getattr(g, 'db', None)
+    if db is None:
+        db = sqlite3.connect(db)
+        g.db = db
+    return db
+
+def get_db_connection():
+    conn = sqlite3.connect(db)
+    return conn
+
+@app.teardown_appcontext
+def close_db_connection(exception):
+    db = getattr(g, 'db', None)
+    if db is not None:
+        db.close()
+
+def init_db():
+    with app.app_context():
+        db = get_db()
+        with app.open_resource('db/schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
+
 # Get users location and set to global variable
+# Temporary solution
 location = geocoder.ip('me')
 
 @app.route('/', methods=['GET', 'POST'])
@@ -13,7 +44,7 @@ def call_api():
     # Get city from search bar if used
     if request.data != None:
         user_city = request.data
-        print(user_city)
+        #print(user_city)
 
     # Get user ip address
     #ip = jsonify({'ip': request.remote_addr})
@@ -45,6 +76,7 @@ def call_api():
     rain = ""
     #for item in precipitation:
     #    rain = item["1h"]
+    current_weather_type = ""
     for item in current_weather:
         weather_type = item["main"]
         if weather_type == "Clouds":
@@ -60,9 +92,18 @@ def call_api():
     #for type, weather_types in weather_type_dict.items():
         #if weather_types == weather_type:
 
+    # Get today's date and time for use in database
+    current_date_time = datetime.datetime.now()
+    # Set correct format
+    date_time = current_date_time.strftime("%d/%m/%Y %H:%M:%S")
 
-    # ADD IN UV INDEX SCALE
-
+    conn = get_db_connection()
+    # Insert weather data into database
+    conn.execute("INSERT INTO data (city, temperature, feels_like, wind_speed, current_weather_type, weather_description, sunrise, sunset, uv_index, datetime) VALUES (?,?,?,?,?,?,?,?,?,?)", (str(location.city), int(temperature), int(feels_like), float(wind_speed), str(current_weather_type), str(weather_description), str(sunrise), str(sunset), float(uv_index), str(date_time)),)
+    conn.commit()
+    data = conn.execute('SELECT * FROM data').fetchall()
+    conn.close()
+    #print(data)
 
     return render_template('index.html', temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = location.city, weather_description = weather_description)
 
@@ -76,26 +117,42 @@ def weather_warnings():
     api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=current,minutely,hourly,daily&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
         lat, lon)
     response = requests.get(api).json()
-    weather_alert = "empty"
-    # Check if there are any weather alerts for the user's location
-    for item in response:
-        if item == "alerts":
-            weather_alert = response['alerts']['event']
-    # Guard clause to check if there are any weather alerts
-    if weather_alert == None:
-        return render_template('weather-warnings.html', location = location.cit, weather_alert = weather_alert)
-    return render_template('weather-warnings.html', location = location.city, weather_alert = weather_alert)
+    weather_data = ""
+    weather_alert_sender = ""
+    weather_alert = None
+    weather_alert_description = ""
+
+    if 'alerts' in response:
+        weather_alert_data_response = response['alerts']
+        weather_data = dict(weather_alert_data_response[0])
+        for key, value in weather_data.items():
+            if key == "sender_name":
+                weather_alert_sender = value
+            elif key == "event":
+                weather_alert = value
+            elif key == "description":
+                weather_alert_description = value
+            else:
+                continue
+
+    else:
+        print('No weather alerts')
+
+    # Put all weather alerts into a dictionary
+    #weather_data = dict(weather_alert_data_response[0])
+    # Iterate over dictionary and grab necessary weather alert data to be used on the weather-warnings page
+
+
+    return render_template('weather-warnings.html', location = location.city, weather_alert_sender = weather_alert_sender, weather_alert = weather_alert, weather_alert_description = weather_alert_description)
 
 @app.route('/weather-map')
 def weather_map():
+    # Setting lat and lon to be used for the weather map
     latlng = location.latlng
-    # Hardcoded lat and lon for now
-    lat = 55.9533
-    lon = 3.1883
+    lat = latlng[0]
+    lon = latlng[1]
 
-    api = "http://maps.openweathermap.org/maps/2.0/weather/PAC0/2/2/2?appid=3b1175067ddb84b48f3f5f82fb3e8ecf"
-    #response = requests.get(api).json()
-    return render_template('weather-map.html')
+    return render_template('weather-map.html', lat=lat, lon=lon)
 
 def convert_time(time_epoch):
     # Method to convert time from epoch time to hours & minutes

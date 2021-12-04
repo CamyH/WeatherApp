@@ -1,3 +1,9 @@
+/*
+* Author: Cameron Hunt
+* Date of last modification: 27/11/2021
+* Purpose of file: To provide the search functionality for the search bars
+*/
+
 /*function searchBar() {
     var input, filter, ul, li, a, i, value;
     input = document.getElementById("search-bar");

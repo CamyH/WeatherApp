@@ -42,10 +42,12 @@
             </div>
             <h1 id="weather-warnings-header">Current Weather Warnings in place for {{ location }}</h1>
             <div id="weather-warnings-box">
-                {% if weather_alert == "empty" %}
-                    <p id="weather-warnings-data">There are currently no weather warnings for the specified location.</p>
+                {% if weather_alert is not none %}
+                    <p id="weather-warnings-sender" class="weather-warnings-data">From: {{ weather_alert_sender }}</p>
+                    <p id="weather-warnings-alert" class="weather-warnings-data">{{ weather_alert }}</p>
+                    <p id="weather-warnings-description" class="weather-warnings-data">{{ weather_alert_description }}</p>
                 {% else %}
-		            <p id="weather-warnings-data">{{ weather_alert  }}</p>
+		            <p id="weather-warnings-data">There are currently no weather warnings for the specified location.</p>
                 {% endif %}
             </div>
         </div>
