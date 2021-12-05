@@ -1,6 +1,10 @@
+import json
+
 from flask import Flask, render_template, jsonify, request, g
 import requests
 import geocoder
+import geopy
+from geopy.geocoders import Nominatim
 import datetime
 import sqlite3
 import datetime
@@ -35,26 +39,39 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
-# Get users location and set to global variable
-# Temporary solution
+# Get server location and set to global variable
+# Server location is used as the default location unless user gives permission to use location
 location = geocoder.ip('me')
 
 @app.route('/', methods=['GET', 'POST'])
 def call_api():
-    # Get city from search bar if used
-    if request.data != None:
-        user_city = request.data
-        #print(user_city)
-
-    # Get user ip address
-    #ip = jsonify({'ip': request.remote_addr})
+    city = ""
+    lat = 0
+    lon = 0
+    # Server location is used as the default location unless user gives permission to use location
     location = geocoder.ip('me')
     latlng = location.latlng
-    city = request.data
     # Set lat and lon vars appropriately
     # Lat is always at position 0, lon is always at position 1
     lat = latlng[0]
     lon = latlng[1]
+    city = location.city
+    if request.method == "POST":
+        city = request.form.get("city")
+        user_geocoder = Nominatim(user_agent="myGeocoder")
+        location = user_geocoder.geocode(city)
+        lat = location.latitude
+        lon = location.longitude
+
+    # Solution for getting lat and lon from user
+    #ip_api = "http://ip-api.com/json/"
+    #ip_api_response = requests.get(ip_api).json()
+    #lat = ip_api_response['lat']
+    #lon = ip_api_response['lon']
+
+    # Get user ip address
+    #ip = jsonify({'ip': request.remote_addr})
+
     # API request
     api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely,alerts&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
         lat, lon)
@@ -99,13 +116,13 @@ def call_api():
 
     conn = get_db_connection()
     # Insert weather data into database
-    conn.execute("INSERT INTO data (city, temperature, feels_like, wind_speed, current_weather_type, weather_description, sunrise, sunset, uv_index, datetime) VALUES (?,?,?,?,?,?,?,?,?,?)", (str(location.city), int(temperature), int(feels_like), float(wind_speed), str(current_weather_type), str(weather_description), str(sunrise), str(sunset), float(uv_index), str(date_time)),)
+    conn.execute("INSERT INTO data (city, temperature, feels_like, wind_speed, current_weather_type, weather_description, sunrise, sunset, uv_index, datetime) VALUES (?,?,?,?,?,?,?,?,?,?)", (str(city), int(temperature), int(feels_like), float(wind_speed), str(current_weather_type), str(weather_description), str(sunrise), str(sunset), float(uv_index), str(date_time)),)
     conn.commit()
-    data = conn.execute('SELECT * FROM data').fetchall()
+    #data = conn.execute('SELECT * FROM data').fetchall()
     conn.close()
     #print(data)
 
-    return render_template('index.html', temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = location.city, weather_description = weather_description)
+    return render_template('index.html', temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = city, weather_description = weather_description)
 
 @app.route('/weather-warnings')
 def weather_warnings():

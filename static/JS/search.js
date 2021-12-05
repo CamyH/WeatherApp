@@ -4,37 +4,12 @@
 * Purpose of file: To provide the search functionality for the search bars
 */
 
-/*function searchBar() {
-    var input, filter, ul, li, a, i, value;
-    input = document.getElementById("search-bar");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("city-list");
-    li = document.getElementsByTagName('li');
+// Function to ask user for their location and call function to send coords to python
+navigator.geolocation.getCurrentPosition(function(position) {
+	//returnLocation(position.coords.latitude, position.coords.longitude);
+});
 
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        value = a.textContent || a.innerText;
-        if (value.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
-}*/
-/* Doesn't work yet */
-function retrieveCity() {
-    const button = document.getElementById("button");
-    const searchBar = document.getElementById("search-bar")
-    const submittedData = document.getElementById("search")
-    const search_term = "";
-    button.addEventListener("input", (event) => {
-        search_term = button.querySelector(button).value;
-    });
-
-    // Call Function to send entered city to app.py
-    sendCity(search_term);
-}
-
+/* For Testing Just Now
 function sendCity() {
     const search_term = "London";
     const city = search_term;
@@ -43,3 +18,4 @@ function sendCity() {
     request.send(city);
     alert(city);
 }
+*/
