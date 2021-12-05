@@ -57,11 +57,12 @@ def call_api():
     lon = latlng[1]
     city = location.city
     if request.method == "POST":
-        city = request.form.get("city")
-        user_geocoder = Nominatim(user_agent="myGeocoder")
-        location = user_geocoder.geocode(city)
-        lat = location.latitude
-        lon = location.longitude
+        if request.form.get("city") != None:
+            city = request.form.get("city")
+            user_geocoder = Nominatim(user_agent="myGeocoder")
+            location = user_geocoder.geocode(city)
+            lat = location.latitude
+            lon = location.longitude
 
     # Solution for getting lat and lon from user
     #ip_api = "http://ip-api.com/json/"
