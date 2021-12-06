@@ -56,6 +56,21 @@ def call_api():
     lat = latlng[0]
     lon = latlng[1]
     city = location.city
+    latitude_geo = 0
+    longitude_geo = 0
+    geolocation_data = request.get_data('lat').decode('ascii')
+    # Check that geolocation_data is not empty
+    if geolocation_data:
+        # Split data into lat and lon from the string that is recieved
+        # This is removing the lat=, lon= and & from the string and leaving the latitude and longitude
+        latitude_data = geolocation_data.split("lat=", 1)[1]
+        latitude_data = latitude_data.split("&")[0]
+        longitude_data = geolocation_data.split("lon=", 1)[1]
+        # Convert back into float values to be used for the API
+        latitude_geo = (float(latitude_data))
+        longitude_geo = (float(longitude_data))
+
+
     if request.method == "POST":
         city = request.form.get("city")
         user_geocoder = Nominatim(user_agent="myGeocoder")
@@ -63,14 +78,10 @@ def call_api():
         lat = location.latitude
         lon = location.longitude
 
-    # Solution for getting lat and lon from user
-    #ip_api = "http://ip-api.com/json/"
-    #ip_api_response = requests.get(ip_api).json()
-    #lat = ip_api_response['lat']
-    #lon = ip_api_response['lon']
-
-    # Get user ip address
-    #ip = jsonify({'ip': request.remote_addr})
+    # Check this works
+    if latitude_geo and longitude_geo:
+        lat = latitude_geo
+        lon = longitude_geo
 
     # API request
     api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely,alerts&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (

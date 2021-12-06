@@ -76,8 +76,27 @@
         <p>&copy; 2021 Cameron Hunt <br>
         <a id="footer-text" rel="nofollow" href="http://www.videezy.com">Free stock footage by Videezy</a> <br>
         <a id="footer-text" rel="nofollow" href="https://www.iconsdb.com/orange-icons/sun-icon.html">Favicon icon from iconsdb</a></p>
+        <div>Icons made by <a href="https://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </footer>
     </body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            var lat = 0;
+            var lon = 0;
+            function askForUserLocation() { navigator.geolocation.getCurrentPosition(showPosition); }
+            function showPosition(position) {
+                lat = position.coords.latitude;
+                lon = position.coords.longitude;
+                $(function () {
+                    $.ajax({
+                        type: "POST",
+                        data: {"lat": lat, "lon": lon},
+                        url: "/",
+                    });
+                });
+            }
+            askForUserLocation();
+        </script>
         <script src="{{ url_for('static', filename="JS/nav.js") }}"></script>
-        <script src="{{ url_for('static', filename="JS/search.js") }}"></script>
+        <script src="{{ url_for('static', filename="JS/map.js") }}"></script>
 </html>

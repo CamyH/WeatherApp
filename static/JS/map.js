@@ -10,18 +10,14 @@
 * // Used to help pass variables from flask to JS: https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
 */
 
-// Function to ask user for their location and call function to send coords to python
+/*// Function to ask user for their location and call function to send coords to python
 navigator.geolocation.getCurrentPosition(function(position) {
+	// Call initMap function and pass in user's lat and lon if they give consent
 	initMap(position.coords.latitude, position.coords.longitude);
-});
+	// Send lat and lon to flask
+	sendData(position.coords.latitude, position.coords.longitude);
 
-// Function to send coords to python
-function returnLocation(lat, lon) {
-	lat = lat;
-	lon = lon;
-	console.log(lat);
-	console.log(lon);
-}
+});*/
 
 // Function to initialise the map with the user's lat and lon coordinates
 function initMap(lat, lon) {
