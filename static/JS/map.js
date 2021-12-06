@@ -12,7 +12,7 @@
 
 // Function to ask user for their location and call function to send coords to python
 navigator.geolocation.getCurrentPosition(function(position) {
-	//returnLocation(position.coords.latitude, position.coords.longitude);
+	initMap(position.coords.latitude, position.coords.longitude);
 });
 
 // Function to send coords to python
