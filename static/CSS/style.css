@@ -148,7 +148,7 @@ nav {
   padding: 4px 46px 4px 60px;
   border-radius: 5px;
   margin-bottom: 12px;
-  opacity: 60%;
+  opacity: 70%;
 }
 #search-bar {
   display: flex;
@@ -161,7 +161,7 @@ nav {
   border:1px solid black;
   border-radius: 5px;
   margin-bottom: 12px;
-  opacity: 60%;
+  opacity: 70%;
 }
 #button {
   display: inline;
@@ -173,33 +173,18 @@ nav {
   overflow: hidden;
   outline: none;
 }
-#city-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-#city-list li a {
-  border: 1px solid #ddd; /* Add a border to all links */
-  margin-top: -1px; /* Prevent double borders */
-  background-color: #f6f6f6; /* Grey background color */
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove default text underline */
-  font-size: 18px; /* Increase the font-size */
-  color: black; /* Add a black text color */
-  display: block; /* Make it into a block element to fill the whole list */
-}
 
 /* Weather Data - Index Page */
 #weather-data-heading { font-size: 1em; }
 #other-data-heading { font-size: 0.9em; }
-#weather-data-box { background: rgba(34, 87, 122, 0.4); }
+#weather-data-box { background: rgba(34, 87, 122, 0.6); }
 #weather-data-box, #other-data-box {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #weather-data-box, #other-data-box { padding: 2%; margin: 2%; padding-left: 25%; padding-right: 25%;  }
-#other-data-box { background: rgba(56, 163, 165, 0.4); margin-top: 3%; }
+#other-data-box { background: rgba(56, 163, 165, 0.6); margin-top: 3%; }
 .weather-data { font-size: 1.5em; }
 .raw-data-temp { font-size: 3.5em; }
 .raw-data-weather { font-size: 2em; }
@@ -226,7 +211,7 @@ div.other-weather-data > * {
 }
 #weather-warnings-box-header { font-size: 1.5em; }
 #weather-warnings-box {
-  background: rgba(34, 87, 122, 0.4);
+  background: rgba(34, 87, 122, 0.6);
   padding: 2%;
   margin: 2%;
   padding-left: 25%;
