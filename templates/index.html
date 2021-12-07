@@ -83,7 +83,13 @@
         <script type="text/javascript">
             var lat = 0;
             var lon = 0;
-            function askForUserLocation() { navigator.geolocation.getCurrentPosition(showPosition); }
+            function askForUserLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                } else {
+                    console.log("Geolocation is not supported by this browser");
+                }
+            }
             function showPosition(position) {
                 lat = position.coords.latitude;
                 lon = position.coords.longitude;
@@ -94,6 +100,24 @@
                         url: "/",
                     });
                 });
+            }
+            // Error handling is required for it to work in the Safari browser
+            // https://stackoverflow.com/questions/61260570/html5-geolocation-not-prompting-for-location-on-safari-browser
+            function showError(error) {
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        console.log("User denied the location request.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        console.log("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        console.log("The request to get the location timed out.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        console.log("An unknown error occurred.")
+                        break;
+                }
             }
             askForUserLocation();
         </script>
