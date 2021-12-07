@@ -8,7 +8,7 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
   background-color: #38A3A5;
 }
 html,
@@ -17,7 +17,7 @@ body {
   scroll-behavior: smooth;
 }
 .main-page {
-  height: 100%;
+  flex: 1 0 auto;
 }
 /*
 ######################### BACKGROUND IMAGES/VIDEO #########################
@@ -179,15 +179,15 @@ nav {
 
 /* Weather Data - Index Page */
 #weather-data-heading { font-size: 1em; }
-#other-data-heading { font-size: 0.9em; }
-#weather-data-box { background: rgba(34, 87, 122, 0.6); }
-#weather-data-box, #other-data-box {
+#other-data-heading { font-size: 0.9em; z-index: 1000; }
+#current-weather-data-box, #weather-forecast-box { background: rgba(34, 87, 122, 0.85); }
+#current-weather-data-box, #weather-forecast-box, #other-data-box {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#weather-data-box, #other-data-box { padding: 2%; margin: 2%; padding-left: 25%; padding-right: 25%;  }
-#other-data-box { background: rgba(56, 163, 165, 0.6); margin-top: 3%; }
+#current-weather-data-box, #weather-forecast-box, #other-data-box { padding: 2%; margin: 2%; padding-left: 25%; padding-right: 25%;  }
+#other-data-box { background: rgba(56, 163, 165, 0.85); margin-top: 3%; }
 .weather-data { font-size: 1.5em; }
 .raw-data-temp { font-size: 3.5em; }
 .raw-data-weather { font-size: 2em; }
@@ -248,24 +248,24 @@ div.other-weather-data > * {
 footer {
   color: white;
   width: 100%;
-  min-height: 23vh;
-  z-index: 9999;
+  min-height: 12vh;
+  z-index: 999;
   background-color: #22577A;
-  text-align: center;
 }
-#footer-text { text-decoration: none; color: #e2e2e2; text-align: center;   display: flex; justify-content: center; align-items: center; }
+#copyright-me { text-align: center; }
+#footer-text { font-size: 1em; text-decoration: none; color: #e2e2e2; text-align: center; }
 #footer-text:hover { color: #38A3A5; }
 /*
 ######################### SMALLER SCREEN ADJUSTMENTS #########################
 */
-@media screen and (min-width: 1080px) and (max-width: 1080px) {
-  nav { min-height: 8vh; }
-  footer { padding-top: 5px; min-height: 13vh; }
+@media screen and (max-width: 1080px) {
+  nav { min-height: 6vh; }
+  footer { min-height: 10vh; padding-top: 20px; }
   .weather-warnings-header { font-size: 1.5em;  }
   .weather-warnings-data { font-size: 0.85em; }
 }
-@media screen and (min-width: 520px) and (max-width: 520px) {
+@media screen and (max-width: 520px) {
   .weather-warnings-header { font-size: 0.75em;  }
   .weather-warnings-data { font-size: 0.40em; }
-  footer { min-height: 16vh; }
+  footer { font-size: 0.75em; min-height: 10vh; padding: 0; }
 }

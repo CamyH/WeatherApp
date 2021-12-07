@@ -50,7 +50,7 @@
                     <button id="button" type="submit" onClick=""><i class="fa fa-search"></i></button>
                 </form>
             </div>
-            <div id="weather-data-box">
+            <div id="current-weather-data-box">
                 <div class="weather-data">
                     <h1 id="weather-data-heading">Here is the current weather for {{ location }}</h1>
                     <!--<i class='fas fa-cloud-sun' style='font-size:36px'></i>-->
@@ -66,6 +66,49 @@
 		    <!--<p id="raw-data">Precipitation amount today: {{ rain }}</p>-->
                 </div>
             </div>
+            <div id="weather-forecast-box">
+                <div class="weather-data">
+                    <h1 id="weather-data-heading">5-day weather forecast</h1>
+                    {% for day in daily_forecast %}
+                        {% if loop.index == 1 %}
+                            <p class="forecast-weather">Tomorrow:</p>
+                            {% for item in day['weather'] %}
+                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
+                            {% endfor %}
+                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                        {% elif loop.index == 2 %}
+                            <p class="forecast-weather">Day 2:</p>
+                            {% for item in day['weather'] %}
+                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
+                            {% endfor %}
+                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                        {% elif loop.index == 3 %}
+                            <p class="forecast-weather">Day 3:</p>
+                            {% for item in day['weather'] %}
+                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
+                            {% endfor %}
+                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                        {% elif loop.index == 4 %}
+                            <p class="forecast-weather">Day 4:</p>
+                            {% for item in day['weather'] %}
+                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
+                            {% endfor %}
+                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                        {% elif loop.index == 5 %}
+                            <p class="forecast-weather">Day 5:</p>
+                            {% for item in day['weather'] %}
+                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
+                            {% endfor %}
+                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
             <div id="other-data-box">
                  <div class="other-weather-data">
                      <h2 id="other-data-heading">Auxiliary forecast information for {{ location }}</h2>
@@ -73,11 +116,12 @@
                      <p class="raw-data-sunrise">Sunrise Time: {{ sunrise }} am</p>
                      <p class="raw-data-sunset">Sunset Time: {{ sunset }} pm</p>
                      <p class="raw-data-uvi">UV Index: {{ uvi }}</p>
+                     <h2 id="other-data-heading">All Weather Data Provided by OpenWeatherMap</h2>
                 </div>
             </div>
         </div>
         <footer>
-            <p>&copy; 2021 Cameron Hunt <br>
+            <p id="copyright-me">&copy; 2021 Cameron Hunt <br>
             <a id="footer-text" rel="nofollow" href="http://www.videezy.com">Free stock footage by Videezy.</a> <br>
             <a id="footer-text" rel="nofollow" href="https://www.iconsdb.com/orange-icons/sun-icon.html">Sun favicon icon from iconsdb.</a> <br>
             <a id="footer-text" rel="nofollow" href="https://www.flaticon.com/" title="Flaticon">Cloud favicon from www.flaticon.com.</a> <br>

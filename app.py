@@ -59,8 +59,9 @@ def call_api():
     latitude_geo = 0
     longitude_geo = 0
     geolocation_data = request.get_data('lat').decode('ascii')
-    # Check that geolocation_data is not empty
-    if geolocation_data:
+    # Check that geolocation_data starts with an l
+    # This means that it contains the lat and lon
+    if geolocation_data.startswith('l'):
         # Split data into lat and lon from the string that is recieved
         # This is removing the lat=, lon= and & from the string and leaving the latitude and longitude
         latitude_data = geolocation_data.split("lat=", 1)[1]
@@ -100,6 +101,8 @@ def call_api():
     sunset_epoch = response['current']['sunset']
     sunset = convert_time(sunset_epoch)
     uv_index = response['current']['uvi']
+    daily_forecast = response['daily']
+    #daily_forecast = response['daily']
     #precipitation = response['current']['rain']
     rain = ""
     #for item in precipitation:
@@ -112,6 +115,9 @@ def call_api():
         weather_description = item["description"]
         # Description comes in lower case in most instances, so capitalise first letter of each word
         weather_description = weather_description.title()
+
+    # Remove the first day from daily_forecast because that is the current day's weather
+    del daily_forecast[0]
 
     weather_type_dict = {
         "weather_type": ["thunderstorm", "drizzle", "rain", "snow", "mist", "smoke", "haze", "dust", "fog", "clear", "clouds"]
@@ -133,7 +139,7 @@ def call_api():
     conn.close()
     #print(data)
 
-    return render_template('index.html', temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = city, weather_description = weather_description)
+    return render_template('index.html', daily_forecast = daily_forecast, temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = city, weather_description = weather_description)
 
 @app.route('/weather-warnings')
 def weather_warnings():
