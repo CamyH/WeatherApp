@@ -6,7 +6,11 @@
         <title>Weather App</title>
         <link href="https://fonts.googleapis.com/css?family=Be+Vietnam:500&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/586a162324.js" crossorigin="anonymous"></script>
-        <link rel="favicon icon" type="image/png" href="{{ url_for('static', filename='IMG/favicon.png') }}" />
+        {% if weather == "Clear Sky" or weather_description == "Broken Clouds" %}
+            <link rel="favicon icon" type="image/png" href="{{ url_for('static', filename='IMG/favicon_sun.png') }}" />
+        {% else %}
+            <link rel="favicon icon" type="image/png" href="{{ url_for('static', filename='IMG/favicon_cloud.png') }}" />
+        {% endif %}
         <link rel="stylesheet" href="{{  url_for('static', filename='CSS/style.css') }}">
     </head>
     <body>
