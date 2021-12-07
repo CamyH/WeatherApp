@@ -41,10 +41,12 @@ body {
 /*
 ######################### TOP BAR #########################
 */
-/* PAGE TITLE/NAV BAR/SPEAKER ICON */
-.speaker-icon {
-  width: 50px;
-  height: 50px;
+/* PAGE TITLE/NAV BAR/OPENWEATHERMAP ICON */
+.openweather-icon {
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  margin: 0;
 }
 .page-title {
   text-decoration: none;
@@ -98,6 +100,7 @@ nav {
   margin: 5px;
   transition: all 0.3s ease;
   z-index: 5;
+  margin-left: 30px;
 }
 .nav-links li {
   opacity: 0;
@@ -148,7 +151,7 @@ nav {
   padding: 4px 46px 4px 60px;
   border-radius: 5px;
   margin-bottom: 12px;
-  opacity: 70%;
+  opacity: 90%;
 }
 #search-bar {
   display: flex;
@@ -161,7 +164,7 @@ nav {
   border:1px solid black;
   border-radius: 5px;
   margin-bottom: 12px;
-  opacity: 70%;
+  opacity: 90%;
 }
 #button {
   display: inline;
@@ -237,35 +240,32 @@ div.other-weather-data > * {
   text-align: center;
 }
 
+/* Weather Map - Weather Map Page */
+#map { height: 100% }
 /*
 ######################### FOOTER #########################
 */
 footer {
   color: white;
   width: 100%;
-  min-height: 10vh;
+  min-height: 23vh;
   z-index: 9999;
   background-color: #22577A;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
-#footer-text { text-decoration: none; color: #e2e2e2; }
+#footer-text { text-decoration: none; color: #e2e2e2; text-align: center;   display: flex; justify-content: center; align-items: center; }
 #footer-text:hover { color: #38A3A5; }
-#weather-map-page {
-  /*display: none;*/
-}
 /*
 ######################### SMALLER SCREEN ADJUSTMENTS #########################
 */
 @media screen and (min-width: 1080px) and (max-width: 1080px) {
-  nav, footer { min-height: 6vh }
+  nav { min-height: 8vh; }
+  footer { padding-top: 5px; min-height: 13vh; }
   .weather-warnings-header { font-size: 1.5em;  }
   .weather-warnings-data { font-size: 0.85em; }
 }
 @media screen and (min-width: 520px) and (max-width: 520px) {
   .weather-warnings-header { font-size: 0.75em;  }
   .weather-warnings-data { font-size: 0.40em; }
+  footer { min-height: 16vh; }
 }
-
-#map { height: 100% }

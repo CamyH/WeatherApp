@@ -26,7 +26,7 @@
     <body>
         <div id="top-bar">
             <nav>
-                <img class="speaker-icon" src="{{ url_for('static', filename='IMG/speaker_icon.png') }}" alt="Speaker Icon">
+                <img class="openweather-icon" src="{{ url_for('static', filename='IMG/openweathermap_icon.png') }}" alt="OpenWeatherMap Icon">
                 <h4><a class="page-title" href="/">Weather App</a></h4>
                 <ul class="nav-links">
                     <li>
@@ -49,11 +49,13 @@
         <div class="main-page">
             <div id="map"></div>
         </div>
-    <footer id="weather-map-page">
-        <p>&copy; 2021 Cameron Hunt <br>
-        <a id="footer-text" rel="nofollow" href="http://www.videezy.com">Free stock footage by Videezy</a> <br>
-        <a id="footer-text" rel="nofollow" href="https://www.iconsdb.com/orange-icons/sun-icon.html">Favicon icon from iconsdb</a></p>
-    </footer>
+        <footer>
+            <p>&copy; 2021 Cameron Hunt <br>
+            <a id="footer-text" rel="nofollow" href="http://www.videezy.com">Free stock footage by Videezy.</a> <br>
+            <a id="footer-text" rel="nofollow" href="https://www.iconsdb.com/orange-icons/sun-icon.html">Sun favicon icon from iconsdb.</a> <br>
+            <a id="footer-text" rel="nofollow" href="https://www.flaticon.com/" title="Flaticon">Cloud favicon from www.flaticon.com.</a> <br>
+            <a id="footer-text" rel="nofollow" href="https://commons.wikimedia.org/wiki/File:OpenWeather-Logo.jpg" title="OpenWeatherMap">OpenWeatherMap logo with the text colour changed to white and used <br> under the Creative Commons Attribution-Share Alike 3.0 Unported licence.</a></p>
+        </footer>
     </body>
         <script type="text/javascript" src="{{ url_for('static', filename="JS/map.js") }}"></script>
         <script type="text/javascript">
