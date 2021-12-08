@@ -1,6 +1,6 @@
 /*
 * Author: Cameron Hunt
-* Date of last modification: 30/11/2021
+* Date of last modification: 08/12/2021
 * Purpose of file: To provide the weather map for the weather-map page using the leaflet library and openweathermap data
 * Resources and help used:
 * // https://github.com/buche/leaflet-openweathermap
