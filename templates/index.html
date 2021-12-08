@@ -68,45 +68,49 @@
             </div>
             <div id="weather-forecast-box">
                 <div class="weather-data">
-                    <h1 id="weather-data-heading">5-day weather forecast</h1>
-                    {% for day in daily_forecast %}
-                        {% if loop.index == 1 %}
-                            <p class="forecast-weather">Tomorrow:</p>
-                            {% for item in day['weather'] %}
-                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
-                            {% endfor %}
-                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
-                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
-                        {% elif loop.index == 2 %}
-                            <p class="forecast-weather">Day 2:</p>
-                            {% for item in day['weather'] %}
-                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
-                            {% endfor %}
-                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
-                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
-                        {% elif loop.index == 3 %}
-                            <p class="forecast-weather">Day 3:</p>
-                            {% for item in day['weather'] %}
-                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
-                            {% endfor %}
-                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
-                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
-                        {% elif loop.index == 4 %}
-                            <p class="forecast-weather">Day 4:</p>
-                            {% for item in day['weather'] %}
-                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
-                            {% endfor %}
-                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
-                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
-                        {% elif loop.index == 5 %}
-                            <p class="forecast-weather">Day 5:</p>
-                            {% for item in day['weather'] %}
-                                <p class="forecast-weather">Weather: {{ item['description']|title }}</p>
-                            {% endfor %}
-                            <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
-                            <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
-                        {% endif %}
-                    {% endfor %}
+                    {% if daily_forecast|length %}
+                        <h1 id="weather-data-heading">5-day weather forecast</h1>
+                        {% for day in daily_forecast %}
+                            {% if loop.index == 1 %}
+                                <p class="forecast-weather">Tomorrow:</p>
+                                {% for item in day['weather'] %}
+                                    <p class="forecast-weather">{{ item['description']|title }}</p>
+                                {% endfor %}
+                                <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                                <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                            {% elif loop.index == 2 %}
+                                <p class="forecast-weather">Day 2:</p>
+                                {% for item in day['weather'] %}
+                                    <p class="forecast-weather">{{ item['description']|title }}</p>
+                                {% endfor %}
+                                <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                                <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                            {% elif loop.index == 3 %}
+                                <p class="forecast-weather">Day 3:</p>
+                                {% for item in day['weather'] %}
+                                    <p class="forecast-weather">{{ item['description']|title }}</p>
+                                {% endfor %}
+                                <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                                <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                            {% elif loop.index == 4 %}
+                                <p class="forecast-weather">Day 4:</p>
+                                {% for item in day['weather'] %}
+                                    <p class="forecast-weather">{{ item['description']|title }}</p>
+                                {% endfor %}
+                                <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                                <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                            {% elif loop.index == 5 %}
+                                <p class="forecast-weather">Day 5:</p>
+                                {% for item in day['weather'] %}
+                                    <p class="forecast-weather">{{ item['description']|title }}</p>
+                                {% endfor %}
+                                <p class="forecast-temp">Highest temperature of: {{ day['temp']['max'] }} &#176;</p>
+                                <p class="forecast-temp">Lowest temperature of: {{ day['temp']['min'] }} &#176;</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <h1 id="weather-data-heading">5-day weather forecast is unavailable at this time.</h1>
+                    {% endif %}
                 </div>
             </div>
             <div id="other-data-box">

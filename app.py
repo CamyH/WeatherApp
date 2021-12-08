@@ -8,6 +8,7 @@ from geopy.geocoders import Nominatim
 import datetime
 import sqlite3
 import datetime
+import json
 
 app = Flask(__name__)
 
@@ -43,11 +44,61 @@ def init_db():
 # Server location is used as the default location unless user gives permission to use location
 location = geocoder.ip('me')
 
+def get_weather_forecast(lat, lon, city):
+    # API request
+    api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely,alerts&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
+        lat, lon)
+    # Check api call worked
+    if api:
+        response = requests.get(api).json()
+    else:
+        # Otherwise load from the database
+        response = get_weather_forecast_database(city)
+    return response
+
+def get_weather_forecast_database(city):
+    conn = get_db_connection()
+    # Fetch data from database
+    data = conn.execute('SELECT * FROM data WHERE city = ? ORDER BY id DESC LIMIT 1', (city,)).fetchall()
+    if data:
+        print("Fetch from database completed successfully")
+    else:
+        print("Error fetching weather data from the database. The database may be empty.")
+    # Convert data from database to json
+    weather_data = dict()
+    for index, value in enumerate(data):
+        weather_data[index] = value
+    return weather_data
+
+def insert_into_database(city, temperature, feels_like, wind_speed, current_weather_type, weather_description, sunrise, sunset, uv_index):
+    # Get today's date and time for use in database
+    current_date_time = datetime.datetime.now()
+    # Set correct format
+    date_time = current_date_time.strftime("%d/%m/%Y %H:%M:%S")
+    conn = get_db_connection()
+    # Insert weather data into database
+    conn.execute("INSERT INTO data (city, temperature, feels_like, wind_speed, current_weather_type, weather_description, sunrise, sunset, uv_index, datetime) VALUES (?,?,?,?,?,?,?,?,?,?)", (str(city), int(temperature), int(feels_like), float(wind_speed), str(current_weather_type), str(weather_description), str(sunrise), str(sunset), float(uv_index), str(date_time)),)
+    conn.commit()
+    #data = conn.execute('SELECT * FROM data').fetchall()
+    conn.close()
+    #print(data)
+
 @app.route('/', methods=['GET', 'POST'])
 def call_api():
     city = ""
     lat = 0
     lon = 0
+    timezone = ""
+    temperature = 0
+    feels_like = 0
+    wind_speed = 0
+    current_weather = ""
+    sunrise = 0
+    sunset = 0
+    uv_index = 0
+    daily_forecast = ""
+    current_weather_type = ""
+    weather_description = ""
     # Server location is used as the default location unless user gives permission to use location
     location = geocoder.ip('me')
     latlng = location.latlng
@@ -83,41 +134,58 @@ def call_api():
     if latitude_geo and longitude_geo:
         lat = latitude_geo
         lon = longitude_geo
+        user_geocoder = Nominatim(user_agent="myGeocoder")
+        lat_string = str(lat)
+        lon_string = str(lon)
+        coordinates = lat_string + ", " + lon_string
+        city_data = user_geocoder.reverse(coordinates)
+        city_data_dict = city_data.raw['address']
+        city = city_data_dict.get('city', '')
 
-    # API request
-    api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=minutely,alerts&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
-        lat, lon)
-    response = requests.get(api).json()
-    # Fetching all appropriate data from API response
-    weather_type = ""
-    weather_description = ""
-    timezone = response['timezone']
-    temperature = round(response['current']['temp'])
-    feels_like = round(response['current']['feels_like'])
-    wind_speed = response['current']['wind_speed']
-    current_weather = response['current']['weather']
-    sunrise_epoch = response['current']['sunrise']
-    sunrise = convert_time(sunrise_epoch)
-    sunset_epoch = response['current']['sunset']
-    sunset = convert_time(sunset_epoch)
-    uv_index = response['current']['uvi']
-    daily_forecast = response['daily']
-    #daily_forecast = response['daily']
-    #precipitation = response['current']['rain']
-    rain = ""
-    #for item in precipitation:
-    #    rain = item["1h"]
-    current_weather_type = ""
-    for item in current_weather:
-        weather_type = item["main"]
-        if weather_type == "Clouds":
-            current_weather_type = "Cloudy"
-        weather_description = item["description"]
-        # Description comes in lower case in most instances, so capitalise first letter of each word
-        weather_description = weather_description.title()
+    # Call api function
+    response = get_weather_forecast(lat, lon, city)
 
-    # Remove the first day from daily_forecast because that is the current day's weather
-    del daily_forecast[0]
+    # Checking if the response is from the database or api
+    # If the first key in the dictionary is 0 then it is from the database, otherwise it is from the api
+    if next(iter(response)) == 0:
+        data_list = []
+        # Getting the current weather data first
+        day_1 = response.get(0)
+        for item in day_1:
+            data_list.append(item)
+        city = data_list[1]
+        temperature = data_list[2]
+        feels_like = data_list[3]
+        wind_speed = data_list[4]
+        current_weather_type = data_list[5]
+        weather_description = data_list[6]
+        sunrise = data_list[7]
+        sunset = data_list[8]
+        uv_index = data_list[9]
+    else:
+        timezone = response['timezone']
+        temperature = round(response['current']['temp'])
+        feels_like = round(response['current']['feels_like'])
+        wind_speed = response['current']['wind_speed']
+        current_weather = response['current']['weather']
+        sunrise_epoch = response['current']['sunrise']
+        sunrise = convert_time(sunrise_epoch)
+        sunset_epoch = response['current']['sunset']
+        sunset = convert_time(sunset_epoch)
+        uv_index = response['current']['uvi']
+        insert_into_database(city, temperature, feels_like, wind_speed, current_weather_type, weather_description, sunrise, sunset, uv_index)
+        daily_forecast = response['daily']
+        current_weather_type = ""
+        for item in current_weather:
+            weather_type = item["main"]
+            if weather_type == "Clouds":
+                current_weather_type = "Cloudy"
+            weather_description = item["description"]
+            # Description comes in lower case in most instances, so capitalise first letter of each word
+            weather_description = weather_description.title()
+
+        # Remove the first day from daily_forecast because that is the current day's weather
+        del daily_forecast[0]
 
     weather_type_dict = {
         "weather_type": ["thunderstorm", "drizzle", "rain", "snow", "mist", "smoke", "haze", "dust", "fog", "clear", "clouds"]
@@ -125,19 +193,6 @@ def call_api():
 
     #for type, weather_types in weather_type_dict.items():
         #if weather_types == weather_type:
-
-    # Get today's date and time for use in database
-    current_date_time = datetime.datetime.now()
-    # Set correct format
-    date_time = current_date_time.strftime("%d/%m/%Y %H:%M:%S")
-
-    conn = get_db_connection()
-    # Insert weather data into database
-    conn.execute("INSERT INTO data (city, temperature, feels_like, wind_speed, current_weather_type, weather_description, sunrise, sunset, uv_index, datetime) VALUES (?,?,?,?,?,?,?,?,?,?)", (str(city), int(temperature), int(feels_like), float(wind_speed), str(current_weather_type), str(weather_description), str(sunrise), str(sunset), float(uv_index), str(date_time)),)
-    conn.commit()
-    #data = conn.execute('SELECT * FROM data').fetchall()
-    conn.close()
-    #print(data)
 
     return render_template('index.html', daily_forecast = daily_forecast, temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = city, weather_description = weather_description)
 
