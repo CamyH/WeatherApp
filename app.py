@@ -196,6 +196,7 @@ def call_api():
 @app.route('/weather-warnings', methods=['GET', 'POST'])
 def weather_warnings():
     city = ""
+    # Default Location as the server
     location = geocoder.ip('me')
     city = location.city
     latlng = location.latlng
@@ -257,7 +258,8 @@ def weather_warnings():
 
 @app.route('/weather-map')
 def weather_map():
-    # Setting lat and lon to be used for the weather map
+    # Default Location as the server
+    location = geocoder.ip('me')
     latlng = location.latlng
     lat = latlng[0]
     lon = latlng[1]

@@ -10,14 +10,11 @@
 * // Used to help pass variables from flask to JS: https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
 */
 
-/*// Function to ask user for their location and call function to send coords to python
+// Function to ask user for their location and call function to send coords to python
 navigator.geolocation.getCurrentPosition(function(position) {
 	// Call initMap function and pass in user's lat and lon if they give consent
 	initMap(position.coords.latitude, position.coords.longitude);
-	// Send lat and lon to flask
-	sendData(position.coords.latitude, position.coords.longitude);
-
-});*/
+});
 
 // Function to initialise the map with the user's lat and lon coordinates
 function initMap(lat, lon) {
@@ -27,7 +24,7 @@ function initMap(lat, lon) {
 	var baseMap = { "OSM Standard": osm };
 	var rain = L.OWM.rainClassic({opacity: 0.5, appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', showLegend: true});
 	var clouds = L.OWM.cloudsClassic({opacity: 0.5, appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', showLegend: true});
-	var city = L.OWM.current({minZoom: 1, appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', showLegend: true})
+	var city = L.OWM.current({minZoom: 1, appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', showLegend: true, imageLoadingUrl: 'static/VID/owmloading.gif'})
 	var snow = L.OWM.snow({appId: '3b1175067ddb84b48f3f5f82fb3e8ecf'});
 	var temp = L.OWM.temperature({appId: '3b1175067ddb84b48f3f5f82fb3e8ecf'});
 	var wind = L.OWM.wind({appId: '3b1175067ddb84b48f3f5f82fb3e8ecf', speedUnit: 'mph', showWindSpeed: 'both', useLocalTime: 'true'});
