@@ -178,16 +178,17 @@ nav {
 }
 
 /* Weather Data - Index Page */
-#weather-data-heading { font-size: 1em; }
+#weather-data-heading { font-size: 1em; text-align: center; }
 #other-data-heading { font-size: 0.9em; z-index: 1000; }
-#current-weather-data-box, #weather-forecast-box { background: rgba(34, 87, 122, 0.85); }
+#current-weather-data-box, #weather-forecast-box { background: rgba(34, 87, 122, 0.80); }
 #current-weather-data-box, #weather-forecast-box, #other-data-box {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50px;
 }
 #current-weather-data-box, #weather-forecast-box, #other-data-box { padding: 2%; margin: 2%; padding-left: 25%; padding-right: 25%;  }
-#other-data-box { background: rgba(56, 163, 165, 0.85); margin-top: 3%; }
+#other-data-box { background: rgba(56, 163, 165, 0.80); margin-top: 3%; }
 .weather-data { font-size: 1.5em; }
 .raw-data-temp { font-size: 3.5em; }
 .raw-data-weather { font-size: 2em; }
@@ -204,6 +205,7 @@ div.other-weather-data > * {
   justify-content: center;
   align-items: center;
 }
+.forecast-temp { font-size: 0.8em; }
 
 /* Weather Warnings - Weather Warnings Page */
 #weather-warnings-header, #weather-warnings-box-header {
@@ -211,6 +213,7 @@ div.other-weather-data > * {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 #weather-warnings-box-header { font-size: 1.5em; }
 #weather-warnings-box {
@@ -225,6 +228,7 @@ div.other-weather-data > * {
   justify-content: center;
   align-items: center;
   font-size: 1.2em;
+  text-align: center;
 }
 #weather-warnings-sender {
   font-size: 2em;
@@ -265,7 +269,7 @@ footer {
   .weather-warnings-data { font-size: 0.85em; }
 }
 @media screen and (max-width: 520px) {
-  .weather-warnings-header { font-size: 0.75em;  }
+  .weather-warnings-header, .weather-data, .other-weather-data { font-size: 0.85em;  }
   .weather-warnings-data { font-size: 0.40em; }
   footer { font-size: 0.75em; min-height: 10vh; padding: 0; }
 }
