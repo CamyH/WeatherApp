@@ -39,9 +39,9 @@
 
         <div class="main-page">
             <div id="search-bar-alignment">
-                <form id="search" onsubmit="retrieveCity()">
-                    <input type="text" id="search-bar" placeholder="Enter a town or city">
-                    <button id="button" type="submit"><i class="fa fa-search"></i></button>
+                <form id="search" action="/weather-warnings" method="POST">
+                    <input type="text" id="search-bar" name="city" placeholder="Enter a town or city" required>
+                    <button id="button" type="submit" onClick=""><i class="fa fa-search"></i></button>
                 </form>
             </div>
             <h1 id="weather-warnings-header">Current Weather Warnings in place for {{ location }}</h1>

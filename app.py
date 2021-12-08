@@ -40,7 +40,7 @@ def init_db():
 
 # Get server location and set to global variable
 # Server location is used as the default location unless user gives permission to use location
-location = geocoder.ip('me')
+#location = geocoder.ip('me')
 
 def get_weather_forecast(lat, lon, city):
     # API request
@@ -120,7 +120,6 @@ def call_api():
         latitude_geo = (float(latitude_data))
         longitude_geo = (float(longitude_data))
 
-
     if request.method == "POST":
         city = request.form.get("city")
         user_geocoder = Nominatim(user_agent="myGeocoder")
@@ -194,11 +193,36 @@ def call_api():
 
     return render_template('index.html', daily_forecast = daily_forecast, temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = city, weather_description = weather_description)
 
-@app.route('/weather-warnings')
+@app.route('/weather-warnings', methods=['GET', 'POST'])
 def weather_warnings():
+    city = ""
+    location = geocoder.ip('me')
+    city = location.city
     latlng = location.latlng
     lat = latlng[0]
     lon = latlng[1]
+
+    latitude_geo = 0
+    longitude_geo = 0
+    geolocation_data = request.get_data('lat').decode('ascii')
+    # Check that geolocation_data starts with an l
+    # This means that it contains the lat and lon
+    if geolocation_data.startswith('l'):
+        # Split data into lat and lon from the string that is recieved
+        # This is removing the lat=, lon= and & from the string and leaving the latitude and longitude
+        latitude_data = geolocation_data.split("lat=", 1)[1]
+        latitude_data = latitude_data.split("&")[0]
+        longitude_data = geolocation_data.split("lon=", 1)[1]
+        # Convert back into float values to be used for the API
+        latitude_geo = (float(latitude_data))
+        longitude_geo = (float(longitude_data))
+
+    if request.method == "POST":
+        city = request.form.get("city")
+        user_geocoder = Nominatim(user_agent="myGeocoder")
+        location = user_geocoder.geocode(city)
+        lat = location.latitude
+        lon = location.longitude
 
     # Second API call to only get weather alerts for the location
     api = "https://api.openweathermap.org/data/2.5/onecall?lat=%d&lon=%d&units=metric&exclude=current,minutely,hourly,daily&appid=3b1175067ddb84b48f3f5f82fb3e8ecf" % (
@@ -221,7 +245,6 @@ def weather_warnings():
                 weather_alert_description = value
             else:
                 continue
-
     else:
         print('No weather alerts')
 
@@ -230,7 +253,7 @@ def weather_warnings():
     # Iterate over dictionary and grab necessary weather alert data to be used on the weather-warnings page
 
 
-    return render_template('weather-warnings.html', location = location.city, weather_alert_sender = weather_alert_sender, weather_alert = weather_alert, weather_alert_description = weather_alert_description)
+    return render_template('weather-warnings.html', location = city, weather_alert_sender = weather_alert_sender, weather_alert = weather_alert, weather_alert_description = weather_alert_description)
 
 @app.route('/weather-map')
 def weather_map():
