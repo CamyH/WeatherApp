@@ -1,12 +1,9 @@
 from flask import Flask, render_template, jsonify, request, g
 import requests
 import geocoder
-import geopy
 from geopy.geocoders import Nominatim
 import datetime
 import sqlite3
-import datetime
-import json
 import init_db
 import os
 
