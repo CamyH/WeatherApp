@@ -1,1 +1,5 @@
-
+Flask=2.0.2
+Jinja2=3.0.2
+geopy=2.2.0
+geocoder=1.38.1
+requests=2.26.0
