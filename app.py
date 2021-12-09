@@ -7,12 +7,20 @@ import datetime
 import sqlite3
 import datetime
 import json
+import init_db
+import os
+
+db = 'db/database.db'
+
+# Create DB
+if os.path.exists(db):
+    print("Database detected")
+else:
+    init_db.create_db()
 
 app = Flask(__name__)
 
 #https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
-
-db = 'db/database.db'
 
 def get_db():
     db = getattr(g, 'db', None)
