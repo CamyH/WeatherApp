@@ -20,8 +20,6 @@ else:
 
 app = Flask(__name__)
 
-#https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
-
 def get_db():
     db = getattr(g, 'db', None)
     if db is None:
@@ -45,10 +43,6 @@ def init_db():
         with app.open_resource('db/schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
-
-# Get server location and set to global variable
-# Server location is used as the default location unless user gives permission to use location
-#location = geocoder.ip('me')
 
 def get_weather_forecast(lat, lon, city):
     # API request
@@ -85,9 +79,7 @@ def insert_into_database(city, temperature, feels_like, wind_speed, current_weat
     # Insert weather data into database
     conn.execute("INSERT INTO data (city, temperature, feels_like, wind_speed, current_weather_type, weather_description, sunrise, sunset, uv_index, datetime) VALUES (?,?,?,?,?,?,?,?,?,?)", (str(city), int(temperature), int(feels_like), float(wind_speed), str(current_weather_type), str(weather_description), str(sunrise), str(sunset), float(uv_index), str(date_time)),)
     conn.commit()
-    #data = conn.execute('SELECT * FROM data').fetchall()
     conn.close()
-    #print(data)
 
 @app.route('/', methods=['GET', 'POST'])
 def call_api():
@@ -192,13 +184,6 @@ def call_api():
         # Remove the first day from daily_forecast because that is the current day's weather
         del daily_forecast[0]
 
-    weather_type_dict = {
-        "weather_type": ["thunderstorm", "drizzle", "rain", "snow", "mist", "smoke", "haze", "dust", "fog", "clear", "clouds"]
-    }
-
-    #for type, weather_types in weather_type_dict.items():
-        #if weather_types == weather_type:
-
     return render_template('index.html', daily_forecast = daily_forecast, temp = temperature, feels_like = feels_like, wind = wind_speed, weather = current_weather_type, sunrise = sunrise, sunset = sunset, uvi = uv_index, location = city, weather_description = weather_description)
 
 @app.route('/weather-warnings', methods=['GET', 'POST'])
@@ -257,11 +242,6 @@ def weather_warnings():
     else:
         print('No weather alerts')
 
-    # Put all weather alerts into a dictionary
-    #weather_data = dict(weather_alert_data_response[0])
-    # Iterate over dictionary and grab necessary weather alert data to be used on the weather-warnings page
-
-
     return render_template('weather-warnings.html', location = city, weather_alert_sender = weather_alert_sender, weather_alert = weather_alert, weather_alert_description = weather_alert_description)
 
 @app.route('/weather-map')
@@ -279,9 +259,6 @@ def convert_time(time_epoch):
     time_converted = datetime.datetime.fromtimestamp(time_epoch)
     time = time_converted.time().strftime("%H:%M")
     return time
-
-#def retrieve_city():
-#    return json.dumps("Hello")
 
 if __name__ == '__main__':
     app.run()
